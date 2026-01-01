@@ -19,5 +19,9 @@ class EKF:
         self.X = F @ self.X + B @ acc
         self.P = F @ self.P @ F.T + self.Q
 
-    def update()
+    def update(self, z, station):
+        dx = self.X[0] - station[0]
+        dy = self.Y[1] - station[1]
+
+        
         
