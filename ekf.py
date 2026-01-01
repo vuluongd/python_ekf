@@ -22,6 +22,15 @@ class EKF:
     def update(self, z, station):
         dx = self.X[0] - station[0]
         dy = self.Y[1] - station[1]
+        h = np.sqrt(dx**2 + dy**2)
+
+        H = np.array([[dx/h, dy/h, 0,0]])
+        K = self.P @ H.T @ np.linalg.inv(H @ self.P @ H.T + self.R)
+
+        self.X += (K.flatten()*(z-h))
+        self.P = (np.eye(4) - K @ H)@ self.P
+
+        
 
         
         
